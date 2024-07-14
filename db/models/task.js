@@ -31,7 +31,7 @@ const taskSchema = new mongoose.Schema({
   },
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "category",
+    ref: "catgory",
     required: [true, "categoryId is required"],
   }
 });

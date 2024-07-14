@@ -17,18 +17,12 @@ export const addCategory = asyncHandler(async (req, res, next) => {
 });
 
 export const getCategory = asyncHandler(async (req, res, next) => {
-  const { name } = req.body;
   const { _id } = req.user;
-  const category = await categoryModel.findOne({ name, ownerId: _id });
-  if (!category) {
-    next(
-      new appError(
-        "there is no category with this name in your categories",
-        404
-      )
-    );
+  const categories = await categoryModel.find({ ownerId: _id });
+  if (!categories) {
+    next(new appError("there is no categories", 404));
   }
-  res.status(200).json({ msg: "done", category });
+  res.status(200).json({ msg: "done", categories });
 });
 
 export const updateCategory = asyncHandler(async (req, res, next) => {
@@ -43,7 +37,7 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
       )
     );
   }
-  const category = categoryModel.findOneAndUpdate(
+  const category = await categoryModel.findOneAndUpdate(
     { name: oldName, ownerId: _id },
     { name: newName },
     { new: true }
@@ -55,11 +49,11 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
 });
 
 export const deleteCategory = asyncHandler(async (req, res, next) => {
-    const { name } = req.body;
-    const { _id } = req.user;
-    const category = await categoryModel.findOneAndDelete({name, ownerId: _id})
-    if(!category){
-        next(new appError("no category with this name", 404));
-    }
-  res.status(204).json({ msg: "done"});
-})
+  const { name } = req.body;
+  const { _id } = req.user;
+  const category = await categoryModel.findOneAndDelete({ name, ownerId: _id });
+  if (!category) {
+    next(new appError("no category with this name", 404));
+  }
+  res.status(204).json({ msg: "done" });
+});

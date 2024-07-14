@@ -3,6 +3,7 @@ import UR from "./routes/user.js";
 import CR from "./routes/category.js";
 import TR from "./routes/task.js";
 import { dbConnection } from "./db/connection.js";
+import { appError } from "./error/classError.js";
 
 dbConnection();
 const app = express();

@@ -20,7 +20,7 @@ export const auth = () => {
         if(!decoded?.username || !decoded?.password){
             next(new appError("invalid token", 400))
         }
-        const user = await userModel.findOne({ name: username, password });
+        const user = await userModel.findOne({ name: decoded.username, password: decoded.password });
         if (!user) {
           next(new appError("user not found", 404));
         }

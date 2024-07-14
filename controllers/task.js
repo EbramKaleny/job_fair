@@ -5,7 +5,7 @@ import categoryModel from "../db/models/category.js";
 
 export const addTask = asyncHandler(async (req, res, next) => {
   const { categoryName } = req.params;
-  const { _id } = req.user;
+  const { _id } = req.user
   const category = await categoryModel.findOne({
     name: categoryName,
     ownerId: _id,
@@ -22,7 +22,7 @@ export const addTask = asyncHandler(async (req, res, next) => {
 });
 
 export const getMyTask = asyncHandler(async (req, res, next) => {
-  const { categoryName, shared, sortBy, order } = req.query;
+  const { categoryName, shared, sortBy, order } = req.body;
   const { _id } = req.user;
   let query = {};
   if (shared) {
@@ -46,14 +46,13 @@ export const getMyTask = asyncHandler(async (req, res, next) => {
     }
     categories.map((category) => category._id);
   }
-  console.log(categoryIds);
   let sortOptions = {}
   if(sortBy === "categoryName"){
     sortOptions["category.name"] = order === "desc" ? -1 : 1
   }
   const tasks = await taskModel.find({
     $or: [{ categoryId: { $in: categoryIds } }, query],
-  }).populate("category").sort(sortOptions);
+  }).sort(sortOptions);
   if (tasks.length == 0) {
     next(new appError("you have no tasks", 404));
   }
