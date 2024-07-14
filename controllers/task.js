@@ -1,5 +1,5 @@
 import taskModel from "../db/models/task.js";
-import { asyncHandler } from "../error/errorHandler.js";
+import asyncHandler from "../error/asyncHandelr.js";
 import { appError } from "../error/classError.js";
 import categoryModel from "../db/models/category.js";
 

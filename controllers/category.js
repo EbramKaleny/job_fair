@@ -1,5 +1,5 @@
 import categoryModel from "../db/models/category.js";
-import { asyncHandler } from "../error/errorHandler.js";
+import asyncHandler from "../error/asyncHandelr.js";
 import { appError } from "../error/classError.js";
 
 export const addCategory = asyncHandler(async (req, res, next) => {

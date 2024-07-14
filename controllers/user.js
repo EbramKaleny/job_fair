@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import userModel from "../db/models/user.js";
-import { asyncHandler } from "../error/errorHandler.js";
+import asyncHandler from "../error/asyncHandelr.js";
 import { appError } from "../error/classError.js";
 
 export const signUp = asyncHandler(async (req, res, next) =>{
